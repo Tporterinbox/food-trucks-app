@@ -25,7 +25,8 @@ app.listen(port, () => {
 
 // 1. getAllFoodTrucks()
 async function getAllFoodTrucks() {
-  const result = await db.query("SELECT * FROM food_trucks");
+  // counts total number of rows in food-trucks table
+  const result = await db.query("SELECT COUNT(*) FROM food_trucks;");
   return result.rows;
 }
 
@@ -42,7 +43,10 @@ async function getAllFoodTrucks() {
 // 7. getFoodTrucksSortedByPrice()
 
 // 8. getFoodTrucksCount()
-
+async function getFoodTrucksCount() {
+  const result = await db.query("SELECT COUNT(*) FROM food_trucks")
+  return result.rows[0];
+}
 // 9. addOneFoodTruck(name, current_location, daily_special, slogan, has_vegan_options, price_level, rating)
 async function addOneFoodTruck(
   name,
@@ -101,7 +105,10 @@ app.get("/get-all-food-trucks", async (req, res) => {
 // 7. GET /get-food-trucks-sorted-by-price
 
 // 8. GET /get-food-trucks-count
-
+app.get("/get-food-trucks-count", async (req, res) => {
+  const count = await getFoodTrucksCount()
+  res.json(count);
+})
 // 9. POST /add-one-food-truck
 app.post("/add-one-food-truck", async (req, res) => {
   const {
