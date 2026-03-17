@@ -146,6 +146,14 @@ async function updateFoodTruckLocation(id, newLocation) {
 
 // 12. updateFoodTruckRating(id, newRating)
 
+async function updateFoodTruckRating(id, newRating) {
+  const result = await db.query(
+    "UPDATE food_trucks SET rating  = $1 WHERE id = $2",
+    [newRating, id],
+  );
+  return result;
+}
+
 // ---------------------------------
 // API Endpoints
 // ---------------------------------
@@ -256,6 +264,17 @@ app.post("/update-food-truck-location", async (req, res) => {
 });
 
 // 12. POST /update-food-truck-rating
+app.post("/update-food-truck-rating", async (req, res) => {
+  const id = req.body.id;
+  const newRating = req.body.newRating;
+
+  await updateFoodTruckRating(id, newRating);
+
+  res.send("Success! The food truck rating was updated!");
+});
+
+
+
 
 // ✨💖🐼 Secret message from Nicole 🐼💖✨
 // Why did the programmer quit their job? Because they didn't get arrays :) *
