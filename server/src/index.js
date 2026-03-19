@@ -290,6 +290,7 @@ app.post("/update-food-truck-location", async (req, res) => {
 });
 
 // 12. POST /update-food-truck-rating
+
 // app.post defines a POST endpoint / 
 // req → contains incoming data (such as parameters)
 // res → used to send a response back
